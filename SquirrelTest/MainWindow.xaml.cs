@@ -28,10 +28,11 @@ namespace SquirrelTest
                     {
                         if (mgr.CheckForUpdate().Result.ReleasesToApply.Any())
                         {
-                            var x = await mgr.UpdateApp();
-                            MessageBox.Show("The app has been updated.\nRestarting");
                             try
                             {
+                                var x = await mgr.UpdateApp();
+                                MessageBox.Show("The app has been updated.\nRestarting");
+
                                 UpdateManager.RestartApp();
                             }
                             catch (Exception ex)

@@ -28,7 +28,12 @@ namespace SquirrelTest
             {
                 using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
                 {
-                    await mgr.UpdateApp();
+                    if (mgr.CheckForUpdate().Result.ReleasesToApply.Any())
+                    {
+                        await mgr.UpdateApp();
+                        MessageBox.Show("The app has been updated.\nRestarting");
+                        UpdateManager.RestartApp();
+                    }
                 }
             });
         }

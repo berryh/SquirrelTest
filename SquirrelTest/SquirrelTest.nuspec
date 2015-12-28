@@ -4,10 +4,11 @@
         <id>SquirrelTest</id>
         <version>1.0.4</version>
         <authors>Berry</authors>
+		<title>SquirrelTest</title>
         <iconUrl>http://www.natgeocreative.com/comp/MM7/596/1444403.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>SquirrelTest</description>
-        <summary>This is a Squirrel Test Application(Summary)</summary>
+        <description>This is a Squirrel Test Application</description>
+        <summary>This is a Squirrel Test Application</summary>
     </metadata>
     <files>
         <file src="bin\Release\DeltaCompressionDotNet.dll" target="lib\net45\DeltaCompressionDotNet.dll" />

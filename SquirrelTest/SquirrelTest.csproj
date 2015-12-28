@@ -47,6 +47,10 @@
       <HintPath>..\packages\DeltaCompressionDotNet.1.0.0\lib\net45\DeltaCompressionDotNet.PatchApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.5\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\squirrel.windows.1.2.1\lib\Net45\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
@@ -81,6 +85,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -99,6 +105,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="InfoBalloon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -106,6 +116,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="InfoBalloon.xaml.cs">
+      <DependentUpon>InfoBalloon.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

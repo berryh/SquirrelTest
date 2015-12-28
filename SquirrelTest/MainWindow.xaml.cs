@@ -30,7 +30,14 @@ namespace SquirrelTest
                         {
                             var x = await mgr.UpdateApp();
                             MessageBox.Show("The app has been updated.\nRestarting");
-                            UpdateManager.RestartApp();
+                            try
+                            {
+                                UpdateManager.RestartApp();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Exception: " + ex);
+                            }
                         }
                     }
                 });

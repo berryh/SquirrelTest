@@ -19,36 +19,17 @@ namespace SquirrelTest
         public MainWindow()
         {
             InitializeComponent();
-
-            Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            Task.Run(async () =>
             {
-                Task.Run(async () =>
+                using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
                 {
-                    using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
+                    ReleaseEntry entry = await mgr.UpdateApp();
+                    if (entry.Version != mgr.CurrentlyInstalledVersion())
                     {
-                        UpdateInfo info = await mgr.CheckForUpdate();
-                        if (info.ReleasesToApply.Any())
-                        {
-                            await mgr.ApplyReleases(info);
-                            MessageBox.Show("The app has been updated.\nRestarting");
-                            UpdateManager.RestartApp();
-                        }
+                        UpdateManager.RestartApp();
                     }
-                });
-            }));
-
-//            Task.Run(async () =>
-//            {
-//                using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
-//                {
-//                    if (mgr.CheckForUpdate().Result.ReleasesToApply.Any())
-//                    {
-//                        var x =await mgr.UpdateApp();
-//                        MessageBox.Show("The app has been updated.\nRestarting");
-//                        UpdateManager.RestartApp();
-//                    }
-//                }
-//            });
+                }
+            });
         }
     }
 }

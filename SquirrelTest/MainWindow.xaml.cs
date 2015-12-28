@@ -3,6 +3,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media.Imaging;
 using Hardcodet.Wpf.TaskbarNotification;
 using Squirrel;
 
@@ -21,7 +22,6 @@ namespace SquirrelTest
         {
             InitializeComponent();
             TrayIcon = new TaskbarIcon { Visibility = Visibility.Hidden };
-            TrayIcon.ShowBalloonTip("Checking for updates","Update checking",BalloonIcon.Info);
             Task.Run(async () =>
             {
                 bool hadUpdate = false;
@@ -33,14 +33,15 @@ namespace SquirrelTest
                         if (entry.Version != mgr.CurrentlyInstalledVersion())
                         {
                             hadUpdate = true;
-                            MessageBox.Show("Had Update");
                         }
                     }
                 }
 
                 if (hadUpdate)
                 {
+                    TrayIcon.Visibility = Visibility.Visible;
                     TrayIcon.ShowCustomBalloon(new InfoBalloon(), PopupAnimation.Fade, 5000);
+                    TrayIcon.Visibility = Visibility.Hidden;
                 }
             });
         }

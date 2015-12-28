@@ -1,1 +1,0 @@
-e:\documenten\visual studio 2015\Projects\SquirrelTest\SquirrelTest\bin\Debug\SquirrelTest.exe.config

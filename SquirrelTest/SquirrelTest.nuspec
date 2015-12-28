@@ -6,8 +6,8 @@
         <authors>Berry</authors>
         <iconUrl>http://www.natgeocreative.com/comp/MM7/596/1444403.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>This is a Squirrel Test Application</description>
-        <summary>This is a Squirrel Test Application</summary>
+        <description>This is a Squirrel Test Application(Description)</description>
+        <summary>This is a Squirrel Test Application(Summary)</summary>
     </metadata>
     <files>
         <file src="bin\Release\DeltaCompressionDotNet.dll" target="lib\net45\DeltaCompressionDotNet.dll" />

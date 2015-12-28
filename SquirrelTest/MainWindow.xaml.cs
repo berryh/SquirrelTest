@@ -26,7 +26,7 @@ namespace SquirrelTest
             InitializeComponent();
             Task.Run(async () =>
             {
-                using (var mgr = new UpdateManager(@"E:\Documenten\Visual Studio 2015\Projects\SquirrelTest\Releases"))
+                using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
                 {
                     await mgr.UpdateApp();
                 }

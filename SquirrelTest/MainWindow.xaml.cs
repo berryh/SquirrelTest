@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region
+
+using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using Squirrel;
+
+#endregion
 
 namespace SquirrelTest
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -26,17 +20,20 @@ namespace SquirrelTest
         {
             InitializeComponent();
 
-            Dispatcher.BeginInvoke(DispatcherPriority.Background,new Action(async () =>
+            Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
             {
-                using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
+                Task.Run(async () =>
                 {
-                    if (mgr.CheckForUpdate().Result.ReleasesToApply.Any())
+                    using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
                     {
-                        var x = await mgr.UpdateApp();
-                        MessageBox.Show("The app has been updated.\nRestarting");
-                        UpdateManager.RestartApp();
+                        if (mgr.CheckForUpdate().Result.ReleasesToApply.Any())
+                        {
+                            var x = await mgr.UpdateApp();
+                            MessageBox.Show("The app has been updated.\nRestarting");
+                            UpdateManager.RestartApp();
+                        }
                     }
-                }
+                });
             }));
 
 //            Task.Run(async () =>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Squirrel;
 
 namespace SquirrelTest
@@ -24,18 +25,32 @@ namespace SquirrelTest
         public MainWindow()
         {
             InitializeComponent();
-            Task.Run(async () =>
+
+            Dispatcher.BeginInvoke(DispatcherPriority.Background,new Action(async () =>
             {
                 using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
                 {
                     if (mgr.CheckForUpdate().Result.ReleasesToApply.Any())
                     {
-                        var x =await mgr.UpdateApp();
+                        var x = await mgr.UpdateApp();
                         MessageBox.Show("The app has been updated.\nRestarting");
                         UpdateManager.RestartApp();
                     }
                 }
-            });
+            }));
+
+//            Task.Run(async () =>
+//            {
+//                using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
+//                {
+//                    if (mgr.CheckForUpdate().Result.ReleasesToApply.Any())
+//                    {
+//                        var x =await mgr.UpdateApp();
+//                        MessageBox.Show("The app has been updated.\nRestarting");
+//                        UpdateManager.RestartApp();
+//                    }
+//                }
+//            });
         }
     }
 }

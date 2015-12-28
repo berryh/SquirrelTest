@@ -21,6 +21,7 @@ namespace SquirrelTest
         {
             InitializeComponent();
             TrayIcon = new TaskbarIcon { Visibility = Visibility.Hidden };
+            TrayIcon.ShowBalloonTip("Checking for updates","Update checking",BalloonIcon.Info);
             Task.Run(async () =>
             {
                 bool hadUpdate = false;
@@ -32,6 +33,7 @@ namespace SquirrelTest
                         if (entry.Version != mgr.CurrentlyInstalledVersion())
                         {
                             hadUpdate = true;
+                            MessageBox.Show("Had Update");
                         }
                     }
                 }

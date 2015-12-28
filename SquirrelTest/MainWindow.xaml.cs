@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -25,23 +26,31 @@ namespace SquirrelTest
             Task.Run(async () =>
             {
                 bool hadUpdate = false;
-                using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
+                try
                 {
-                    if (mgr.IsInstalledApp)
+                    using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
                     {
-                        ReleaseEntry entry = await mgr.UpdateApp();
-                        if (entry.Version != mgr.CurrentlyInstalledVersion())
+                        if (mgr.IsInstalledApp)
                         {
-                            hadUpdate = true;
+                            ReleaseEntry entry = await mgr.UpdateApp();
+                            if (entry.Version != mgr.CurrentlyInstalledVersion())
+                            {
+                                hadUpdate = true;
+                            }
                         }
                     }
                 }
-
+                catch (Exception)
+                {
+                    // ignored
+                    // Used for debugging purposes
+                }
                 if (hadUpdate)
                 {
-                    TrayIcon.Visibility = Visibility.Visible;
-                    TrayIcon.ShowCustomBalloon(new InfoBalloon(), PopupAnimation.Fade, 5000);
-                    TrayIcon.Visibility = Visibility.Hidden;
+                    Dispatcher.Invoke(() =>
+                    {
+                        TrayIcon.ShowCustomBalloon(new InfoBalloon(), PopupAnimation.Fade, 5000);
+                    });
                 }
             });
         }

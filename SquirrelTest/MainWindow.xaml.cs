@@ -21,12 +21,22 @@ namespace SquirrelTest
             InitializeComponent();
             Task.Run(async () =>
             {
+                bool hadUpdate = false;
                 using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
                 {
                     if (mgr.IsInstalledApp)
                     {
-                        await mgr.UpdateApp();
+                        ReleaseEntry entry = await mgr.UpdateApp();
+                        if (entry.Version != mgr.CurrentlyInstalledVersion())
+                        {
+                            hadUpdate = true;
+                        }
                     }
+                }
+
+                if (hadUpdate)
+                {
+                    UpdateManager.RestartApp();
                 }
             });
         }

@@ -4,7 +4,6 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media.Imaging;
 using Hardcodet.Wpf.TaskbarNotification;
 using Squirrel;
 
@@ -22,10 +21,10 @@ namespace SquirrelTest
         public MainWindow()
         {
             InitializeComponent();
-            TrayIcon = new TaskbarIcon { Visibility = Visibility.Hidden };
+            TrayIcon = new TaskbarIcon {Visibility = Visibility.Hidden};
             Task.Run(async () =>
             {
-                bool hadUpdate = false;
+                bool hadUpdate = true;
                 try
                 {
                     using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
@@ -47,10 +46,7 @@ namespace SquirrelTest
                 }
                 if (hadUpdate)
                 {
-                    Dispatcher.Invoke(() =>
-                    {
-                        TrayIcon.ShowCustomBalloon(new InfoBalloon(), PopupAnimation.Fade, 5000);
-                    });
+                    Dispatcher.Invoke(() => { TrayIcon.ShowCustomBalloon(new InfoBalloon(), PopupAnimation.Fade, 5000); });
                 }
             });
         }

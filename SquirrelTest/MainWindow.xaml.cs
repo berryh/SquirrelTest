@@ -24,7 +24,7 @@ namespace SquirrelTest
             TrayIcon = new TaskbarIcon {Visibility = Visibility.Hidden};
             Task.Run(async () =>
             {
-                bool hadUpdate = true;
+                bool hadUpdate = false;
                 try
                 {
                     using (var mgr = new UpdateManager(@"http://minio.digitalocean.berryh.tk/releases/SquirrelTest/"))
